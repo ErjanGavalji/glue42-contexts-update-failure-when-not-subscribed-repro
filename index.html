@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Contexts update not called when-not subscribed repro</title>
+    <script type="text/javascript" src="https://unpkg.com/@glue42/desktop@4.5.7/dist/web/@glue42/desktop.min.js"></script>
+  </head>
+  <body>
+    <div id="message">loading...</div>
+    <div id="control">
+      <button id="updateContext" style="display:none" onclick="javaScript:updateContext();">Update Context!</button>
+    </div>
+    <script>
+      const messageEmt = document.getElementById("message");
+      const updateContextEmt = document.getElementById("updateContext");
+
+      Glue().then((glue) => {
+        window.glue = glue;
+        messageEmt.innerHTML = "Glue42 was successfully initialized";
+        updateContextEmt.style = "display:initial";
+      }, () => {
+        messageEmt.innerHTML = 'Glue42 initialization did not succeed. Authentication failure?';
+        messageEmt.style = "background-color: red; color: white";
+      });
+
+      function updateContext() {
+        if (!window.glue) {
+          alert('Glue42 was not initialized.');
+          return;
+        }
+        window.glue.contexts.update('MyNewContext', {myNewObj: "MyNewVal"});
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "glue42-contexts-update-failure-when-not-subscribed-repro",
+  "version": "0.0.1",
+  "description": "Contexts update not called when-not subscribed repro",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server --port=8872",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Glue42;",
+    "Repro;",
+    "Contexts"
+  ],
+  "author": "ErjanGavalji",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}
