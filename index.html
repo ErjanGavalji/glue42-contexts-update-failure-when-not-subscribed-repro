@@ -7,15 +7,20 @@
     <div id="message">loading...</div>
     <div id="control">
       <button id="updateContext" style="display:none" onclick="javaScript:updateContext();">Update Context!</button>
+      <button id="setTheme" style="display:none" onclick="javaScript:setTheme();">Set Theme!</button>
     </div>
     <script>
       const messageEmt = document.getElementById("message");
       const updateContextEmt = document.getElementById("updateContext");
+      const setThemeEmt = document.getElementById("setTheme");
 
       Glue().then((glue) => {
         window.glue = glue;
         messageEmt.innerHTML = "Glue42 was successfully initialized";
         updateContextEmt.style = "display:initial";
+        setThemeEmt.style = "display:initial";
+        // A "FIX" for the context update
+//        glue.contexts.subscribe("Connect.Themes", (context, delta, remoted) => { console.log(context); });
       }, () => {
         messageEmt.innerHTML = 'Glue42 initialization did not succeed. Authentication failure?';
         messageEmt.style = "background-color: red; color: white";
@@ -26,7 +31,28 @@
           alert('Glue42 was not initialized.');
           return;
         }
-        window.glue.contexts.update('MyNewContext', {myNewObj: "MyNewVal"});
+        window.glue.contexts.update("MyNewContext", {myNewObj: "MyNewVal"});
+      }
+
+      function setTheme() {
+        if (!window.glue) {
+          alert('Glue42 was not initialized.');
+          return;
+        }
+        window.glue.contexts.update("Connect.Themes",
+          {
+            all: [
+              {
+                name: "dark",
+                displayName: "Night"
+              },
+              {
+                name: "light",
+                displayName: "Day"
+              },
+            ],
+            selected: "dark",
+          });
       }
     </script>
   </body>
